@@ -21,16 +21,3 @@ const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation',
         </div>
     </form>
 </template>
-
-<style scoped>
-.answer {
-    background-color: rgb(225, 225, 225);
-    height: 150px;
-    width: 50%;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-</style>
