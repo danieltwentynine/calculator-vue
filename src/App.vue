@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import Header from './components/Header.vue';
 import Digits from './components/Digits.vue';
 
@@ -7,46 +7,31 @@ const estado = reactive({
   numTemp1: 0,
   numTemp2: 0,
   operations: '+',
-  result: null, // Holds the result of the calculation
 });
 
-const sum = () => estado.numTemp1 + estado.numTemp2;
-const sub = () => estado.numTemp1 - estado.numTemp2;
-const multi = () => estado.numTemp1 * estado.numTemp2;
-const divi = () => (estado.numTemp2 !== 0 ? estado.numTemp1 / estado.numTemp2 : 'Error: Division by zero');
-
-const answer = () => {
-  const { operations } = estado;
+// Computed property for the result
+const result = computed(() => {
+  const { numTemp1, numTemp2, operations } = estado;
 
   switch (operations) {
     case '-':
-      return sub();
+      return numTemp1 - numTemp2;
     case '*':
-      return multi();
+      return numTemp1 * numTemp2;
     case '/':
-      return divi();
-    default:
-      return sum();
+      return numTemp2 !== 0 ? numTemp1 / numTemp2 : 'Error: Division by zero';
+    default: // Default to addition
+      return numTemp1 + numTemp2;
   }
-};
-
-const showAnswer = () => {
-  estado.result = answer(); // Calculate and store the result in estado.result
-};
+});
 </script>
 
 <template>
   <div class="container">
     <Header />
-    <Digits
-      :num1="estado.numTemp1"
-      :get-num1="evento => (estado.numTemp1 = Number(evento.target.value))"
-      :num2="estado.numTemp2"
-      :get-num2="evento => (estado.numTemp2 = Number(evento.target.value))"
-      :get-operation="evento => (estado.operations = evento.target.value)"
-      :answer="estado.result"
-      :calculate="showAnswer"
-    />
+    <Digits :num1="estado.numTemp1" :get-num1="evento => (estado.numTemp1 = Number(evento.target.value))"
+      :num2="estado.numTemp2" :get-num2="evento => (estado.numTemp2 = Number(evento.target.value))"
+      :get-operation="evento => (estado.operations = evento.target.value)" :answer="result" />
   </div>
 </template>
 

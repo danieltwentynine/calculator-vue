@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation', 'answer', 'calculate']);
+const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation', 'answer']);
 </script>
 
 <template>
@@ -16,13 +16,10 @@ const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation',
                 <option value="/">/</option>
             </select>
         </div>
-        <div class="text-center mt-4">
-            <button type="button" @click="props.calculate" class="btn btn-dark p-2">Calculate</button>
+        <div class="answer text-center m-auto mt-5">
+            {{ props.answer !== null ? props.answer : 'Result will appear here' }}
         </div>
     </form>
-    <div class="answer text-center m-auto mt-5">
-        {{ props.answer !== null ? props.answer : 'Result will appear here' }}
-    </div>
 </template>
 
 <style scoped>
