@@ -16,7 +16,8 @@ const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation',
                 <option value="/">/</option>
             </select>
         </div>
-        <div class="answer text-center m-auto mt-5">
+        <div class="answer text-center m-auto mt-5"
+            :style="{ width: `${Math.max(30, props.answer.toString().length * 2)}%` }">
             {{ props.answer !== null ? props.answer : 'Result will appear here' }}
         </div>
     </form>
@@ -26,11 +27,14 @@ const props = defineProps(['num1', 'num2', 'getNum1', 'getNum2', 'getOperation',
 .answer {
     background-color: rgb(225, 225, 225);
     height: 150px;
-    width: 30%;
+    min-width: 150px;
+    max-width: 90%;
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+    transition: width 0.3s ease;
+    /* Smoothly animate the width changes */
 }
 </style>
